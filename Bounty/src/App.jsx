@@ -32,7 +32,7 @@ export default function App() {
 
   return (
     <>
-      {/* Fixed step icons */}
+      
       <div className="fixed top-0 left-0 right-0 flex flex-wrap justify-center gap-3 sm:gap-6 z-50 bg-[#F7F7F7] p-2 shadow">
         {steps.map((step, index) => {
           const currentStepIndex = steps.indexOf(currentStep);
@@ -58,12 +58,12 @@ export default function App() {
         })}
       </div>
 
-      {/* Main layout */}
+      
       <div className="flex flex-col md:flex-row min-h-screen mt-16 md:mt-20 overflow-x-hidden">
-        {/* Sidebar */}
+        
         <Sidebar />
 
-        {/* Content */}
+        
         <div className="flex-1 p-4 md:p-6">
           {renderStep()}
         </div>

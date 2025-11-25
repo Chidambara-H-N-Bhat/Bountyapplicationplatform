@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentStep } from "@/store/store";
+import { setCurrentStep, resetSteps } from "@/store/store";
 import Button from "./Button";
 
 export default function Confirm({ onEdit }) {
@@ -16,18 +16,23 @@ export default function Confirm({ onEdit }) {
       backer: backerData,
     };
     console.log("Final Payload:", payload);
+
+    
+    dispatch(resetSteps());
+
+    
     dispatch(setCurrentStep("result"));
   };
 
   return (
     <div className="w-full max-w-[718px] bg-white rounded-xl p-6 md:p-8 mt-24 mx-auto shadow-lg hover:shadow-xl transition-shadow duration-300">
 
-      {/* Header */}
+      
       <h2 className="text-2xl md:text-3xl font-bold text-[#1F2937] mb-8 text-center md:text-left">
         Review & Confirm Bounty
       </h2>
 
-      {/* Brief Section */}
+      
       <div className="p-5 md:p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200 mb-6 shadow-sm">
         <h3 className="font-semibold text-[16px] mb-3 text-[#1F2937] border-b pb-2">Brief Details</h3>
         <div className="space-y-2 text-[14px] text-gray-700">
@@ -43,7 +48,7 @@ export default function Confirm({ onEdit }) {
         </div>
       </div>
 
-      {/* Reward Section */}
+      
       <div className="p-5 md:p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200 mb-6 shadow-sm">
         <h3 className="font-semibold text-[16px] mb-3 text-[#1F2937] border-b pb-2">Reward Details</h3>
         <div className="space-y-2 text-[14px] text-gray-700">
@@ -60,7 +65,7 @@ export default function Confirm({ onEdit }) {
         </div>
       </div>
 
-      {/* Backer Section */}
+      
       {backerData && (
         <div className="p-5 md:p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200 mb-6 shadow-sm">
           <h3 className="font-semibold text-[16px] mb-3 text-[#1F2937] border-b pb-2">Backer Details</h3>
@@ -80,7 +85,7 @@ export default function Confirm({ onEdit }) {
         </div>
       )}
 
-      {/* Buttons */}
+      
       <div className="flex flex-col md:flex-row justify-between gap-4 mt-6">
         <Button
           text="Edit"

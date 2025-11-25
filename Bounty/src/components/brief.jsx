@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentStep, saveStepData, completeStep } from "@/store/store";
 import InputField from "@/components/Input";
 import SelectField from "@/components/Dropdown";
@@ -8,14 +8,16 @@ import Button from "@/components/Button";
 
 export default function Brief() {
   const dispatch = useDispatch();
+  const storedData = useSelector((state) => state.steps.steps.brief.data);
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [project, setProjectType] = useState("");
-  const [bountyType, setBountyType] = useState("");
-  const [dominantImpact, setDominantImpact] = useState("");
-  const [mode, setMode] = useState("Digital");
-  const [location, setLocation] = useState("");
+  
+  const [title, setTitle] = useState(storedData?.title || "");
+  const [description, setDescription] = useState(storedData?.description || "");
+  const [project, setProjectType] = useState(storedData?.project || "");
+  const [bountyType, setBountyType] = useState(storedData?.bountyType || "");
+  const [dominantImpact, setDominantImpact] = useState(storedData?.dominantImpact || "");
+  const [mode, setMode] = useState(storedData?.mode || "Digital");
+  const [location, setLocation] = useState(storedData?.location || "");
   const [errorMsg, setErrorMsg] = useState(""); 
 
   const handleSubmit = (e) => {
@@ -44,18 +46,18 @@ export default function Brief() {
       onSubmit={handleSubmit}
       className="w-full max-w-[718px] bg-[#F7F7F7] rounded-lg border-x border-[#E5E5E5] p-6 mt-24 mx-auto relative"
     >
-      {/* Error Popup */}
+      
       {errorMsg && (
         <div className="w-full max-w-[576px] mx-auto mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm text-center">
           {errorMsg}
         </div>
       )}
 
-      {/* Bounty Title */}
+     
       <div className="w-full max-w-[576px] mx-auto mb-6">
-          <label className="flex items-center font-inter font-semibold text-[16px] text-[#171717] mb-2">
-            Bounty Title*
-          </label>
+        <label className="flex items-center font-inter font-semibold text-[16px] text-[#171717] mb-2">
+          Bounty Title*
+        </label>
 
         <InputField
           required
@@ -69,25 +71,25 @@ export default function Brief() {
         />
       </div>
 
-      {/* Bounty Description */}
+      
       <div className="w-full max-w-[576px] mx-auto flex flex-col gap-2 mb-6">
-         <label className="flex items-center font-inter font-semibold text-[14px] text-[#171717] mb-2">
-           Bounty  Description 
+        <label className="flex items-center font-inter font-semibold text-[14px] text-[#171717] mb-2">
+          Bounty Description 
           <span className="w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-[#737373] rounded-full ml-2">
             i
           </span>
-          </label>
+        </label>
 
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value.slice(0, 1000))}
           placeholder="Briefly describe what the bounty does"
-          className="mt-2 w-full h-24 rounded-[8px] bg-white border border-[#E5E5E5] text-[#171717] p-2"
+          className="w-full h-24 rounded-[8px] bg-white border border-[#E5E5E5] text-[#171717] p-2"
         />
         <p className="text-sm text-gray-500 text-right">character limit: {description.length}/1000</p>
       </div>
 
-      {/* Project */}
+      
       <div className="w-full max-w-[574px] mx-auto mb-6 flex flex-col gap-2">
         <label className="font-inter font-semibold text-[14px]">Project</label>
         <SelectField
@@ -99,49 +101,51 @@ export default function Brief() {
         />
       </div>
 
-      {/* Bounty Type & Dominant Impact */}
+      
       <div className="w-full max-w-[576px] mx-auto flex flex-col md:flex-row gap-4 mb-6 mt-10">
         <div className="flex-1">
           <label className="flex items-center font-inter font-semibold text-[14px] text-[#171717] mb-2">
             Bounty Type
-          <span className="w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-[#737373] rounded-full ml-2">
-            i
-          </span>
+            <span className="w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-[#737373] rounded-full ml-2">
+              i
+            </span>
           </label>
           <SelectField
             Placeholder="Choose category"
             value={bountyType}
             onChange={setBountyType}
             options={["Content", "Design", "Development", "Marketing", "Other"]}
+            className="w-50"
           />
         </div>
-        <div className="flex-1">
+        <div className="flex-2">
           <label className="flex items-center font-inter font-semibold text-[14px] text-[#171717] mb-2">
             Dominant Impact Core
-          <span className="w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-[#737373] rounded-full ml-2">
-            i
-          </span>
+            <span className="w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-[#737373] rounded-full ml-2">
+              i
+            </span>
           </label>
           <SelectField
             Placeholder="Choose core"
             value={dominantImpact}
             onChange={setDominantImpact}
             options={["Water", "Earth", "Social", "Energy"]}
+            className="w-50"
           />
         </div>
       </div>
 
-      {/* Bounty Mode */}
+      
       <div className="w-full max-w-[574px] mx-auto mb-6 mt-10">
         <label className="flex items-center font-inter font-semibold text-[14px] text-[#171717] mb-2">
-            Bounty Mode
+          Bounty Mode
           <span className="w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-[#737373] rounded-full ml-2">
             i
           </span>
-          </label>
-        <RadioGroup value={mode} onChange={setMode} options={["Digital", "Physical"]} />
+        </label>
+        <RadioGroup value={mode} onChange={setMode} options={["Digital Bounty", "Physical Bounty"]} />
 
-        {mode === "Physical" && (
+        {mode === "Physical Bounty" && (
           <div className="mt-10 flex flex-col gap-4">
             <InputField
               label={
@@ -173,9 +177,8 @@ export default function Brief() {
         )}
       </div>
 
-      {/* Actions */}
-      <div className="flex flex-col md:flex-row justify-between gap-4 mt-30 w-full max-w-[576px] mx-auto">
-        
+      
+      <div className="flex flex-col md:flex-row justify-end gap-4 mt-30 w-full max-w-[576px] mx-auto">
         <Button type="submit" text="Next" className="w-full md:w-auto" />
       </div>
     </form>

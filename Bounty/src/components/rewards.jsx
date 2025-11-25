@@ -20,14 +20,14 @@ export default function RewardsStep() {
   const [hasImpactCert, setHasImpactCert] = useState(storedData.hasImpactCert || false);
   const [impactBrief, setImpactBrief] = useState(storedData.impactBrief || "");
   const [sdgs, setSdgs] = useState(storedData.sdgs || []);
-  const [errorMsg, setErrorMsg] = useState(""); // ✅ popup state
+  const [errorMsg, setErrorMsg] = useState(""); 
 
   const currencyOptions = ["USD", "EUR", "INR", "GBP"];
   const sdgOptions = ["No Poverty", "Zero Hunger", "Quality Education", "Gender Equality"];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!currency || !totalReward || !winners || !expiration) {
+    if (!currency || !totalReward || !winners || !expiration || !impactBrief) {
       setErrorMsg("Please fill all required fields!");
       return;
     }
@@ -57,7 +57,7 @@ export default function RewardsStep() {
         <p className="text-xs sm:text-sm text-[#40404099]">Choose bounty reward token and set the amount</p>
       </div>
 
-      {/* Budget */}
+      
       <div className="flex flex-col sm:flex-row sm:items-end gap-2 sm:gap-4 mb-6">
         <div className="sm:w-1/4">
           <SelectField options={currencyOptions} value={currency} onChange={setCurrency} />
@@ -72,27 +72,27 @@ export default function RewardsStep() {
         </div>
       </div>
 
-      {/* Winners */}
+      
       <div className="mb-6">
         <label className="block text-sm font-normal text-[#171717] mb-1">How many Winners *</label>
         <InputField type="number" min="0" value={winners} onChange={(v) => setWinners(Math.max(0, v))} />
       </div>
 
-      {/* Timeline */}
-      <div className="mb-6">
+      
+      <div className="mb-6 mt-10">
         <h2 className="text-lg sm:text-xl font-semibold text-[#171717] mb-2">Timeline</h2>
-        <label className="block text-sm font-normal text-[#171717] mb-1">Expiration Date *</label>
+        <label className="block text-sm font-normal text-[#171717] mb-1 mt-10 ">Expiration Date *</label>
         <InputField type="date" value={expiration} onChange={setExpiration} />
 
-        <div className="flex flex-wrap gap-2 mt-2">
-          <InputField label="Days" type="number" min="0" value={days} onChange={(v) => setDays(Math.max(0, v))} inputClassName="w-20" />
-          <InputField label="Hours" type="number" min="0" value={hours} onChange={(v) => setHours(Math.max(0, v))} inputClassName="w-20" />
-          <InputField label="Minutes" type="number" min="0" value={minutes} onChange={(v) => setMinutes(Math.max(0, v))} inputClassName="w-20" />
+        <div className="flex flex-wrap gap-2 mt-10">
+          <InputField label="Days" type="number" min="0" value={days} onChange={(v) => setDays(Math.max(0, v))} inputClassName="w-40" />
+          <InputField label="Hours" type="number" min="0" value={hours} onChange={(v) => setHours(Math.max(0, v))} inputClassName="w-40" />
+          <InputField label="Minutes" type="number" min="0" value={minutes} onChange={(v) => setMinutes(Math.max(0, v))} inputClassName="w-40" />
         </div>
       </div>
 
-      {/* Impact Certificate */}
-      <div className="flex items-center gap-4 mb-4">
+      
+      <div className="flex items-center gap-4 mb-4 mt-10">
         <div
           onClick={() => setHasImpactCert(!hasImpactCert)}
           className={`w-10 h-5 rounded-full cursor-pointer transition-all duration-300 ${hasImpactCert ? "bg-orange-500" : "bg-gray-300"} relative`}
@@ -100,7 +100,7 @@ export default function RewardsStep() {
           <div className={`w-4 h-4 bg-white rounded-full absolute top-[1px] transition-all duration-300 ${hasImpactCert ? "left-5" : "left-[1px]"}`}></div>
         </div>
         <label className="flex items-center font-inter font-semibold text-[16px] text-[#171717] mb-2">
-            impact Certificate
+            Impact Certificate
           <span className="w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-[#737373] rounded-full ml-2">
             i
           </span>
@@ -115,11 +115,12 @@ export default function RewardsStep() {
           className="w-full mb-6 text-[#171717]"
         />
       )}
+      <p className="text-sm text-gray-500 text-right"> Max 100 character</p>
 
       
 
-      {/* SDGs */}
-      <div className="mb-6">
+      
+      <div className="mb-6 mt-10">
         <label className="flex items-center font-inter font-semibold text-[14px] text-[#171717] mb-2">
             SDGs*
           <span className="w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-[#737373] rounded-full ml-2">
@@ -129,13 +130,14 @@ export default function RewardsStep() {
         <MultiSelectDropdown options={sdgOptions} value={sdgs} onChange={setSdgs} placeholder="Select SDGs" />
       </div>
 
-      {/* Actions */}
-      <div className="flex flex-col sm:flex-row justify-between gap-4 mt-6">
+      
+      <div className="flex flex-col sm:flex-row justify-between gap-4 mt-10">
         <button
           type="button"
           onClick={() => dispatch(setCurrentStep("brief"))}
           className="w-full sm:w-36 h-10 bg-white text-black border border-gray-300 rounded hover:bg-gray-100"
         >
+          
           Back
         </button>
         <Button type="submit" text="Next" className="w-full sm:w-auto" />

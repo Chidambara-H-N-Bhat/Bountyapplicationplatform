@@ -21,24 +21,24 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Hamburger Button - Fixed */}
+      
       <button
-        className="fixed top-5 left-5 z-50 w-10 h-10 justify-center"
+        className="fixed top-20 left-3 z-60 w-20 h-20 justify-center"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {/* Top Line */}
+        
         <span
           className={`absolute block h-0.5 w-6 bg-black transition-transform duration-300 origin-center ${
             isOpen ? "rotate-45" : "translate-y-[-6px] rotate-0"
           }`}
         ></span>
-        {/* Middle Line */}
+        
         <span
           className={`absolute block h-0.5 w-6 bg-black transition-opacity duration-300 ${
             isOpen ? "opacity-0" : "opacity-100"
           }`}
         ></span>
-        {/* Bottom Line */}
+        
         <span
           className={`absolute block h-0.5 w-6 bg-black transition-transform duration-300 origin-center ${
             isOpen ? "-rotate-45" : "translate-y-[6px] rotate-0"
@@ -46,19 +46,19 @@ export default function Sidebar() {
         ></span>
       </button>
 
-      {/* Sidebar */}
+      
       <div
         className={`fixed top-0 left-0 h-full w-[280px] bg-[#F7F7F7] border-x border-[#E5E5E5] rounded-lg p-5 z-40
           transform transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
       >
-        {/* Bounty Steps Title */}
+        
         <h4 className="text-[#969696] text-sm w-[140px] h-[24px] absolute top-[181px] left-[67px]">
           Bounty Steps
         </h4>
 
-        {/* Steps */}
+        
         {stepList.map((step, index) => (
           <div
             key={step}
@@ -73,7 +73,7 @@ export default function Sidebar() {
         ))}
       </div>
 
-      {/* Overlay for small screens */}
+      
       {isOpen && window.innerWidth < 768 && (
         <div
           className="fixed inset-0 bg-black opacity-30 z-30"

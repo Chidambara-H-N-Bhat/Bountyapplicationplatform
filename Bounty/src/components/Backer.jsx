@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentStep, saveStepData, completeStep } from "@/store/store";
 import InputField from "./Input";
@@ -8,15 +8,37 @@ export default function Backer() {
   const dispatch = useDispatch();
   const briefData = useSelector((state) => state.steps.steps.brief.data);
   const rewardsData = useSelector((state) => state.steps.steps.rewards.data);
+  const backerData = useSelector((state) => state.steps.steps.backer.data);
 
   const [hasBacker, setHasBacker] = useState(false);
   const [backerName, setBackerName] = useState("");
-  const [backerLogo, setBackerLogo] = useState(null);
+  const [backerLogo, setBackerLogo] = useState(null); 
   const [backerMessage, setBackerMessage] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(""); 
   const [previewUrl, setPreviewUrl] = useState(null);
+
+  
+  useEffect(() => {
+    if (backerData) {
+      setHasBacker(true);
+      setBackerName(backerData.name || "");
+      setBackerMessage(backerData.message || "");
+      
+      if (backerData.logoPreview) {
+        setPreviewUrl(backerData.logoPreview);
+        setBackerLogo(null); 
+      }
+    }
+  }, [backerData]);
+
+  
+  useEffect(() => {
+    return () => {
+      if (previewUrl && previewUrl.startsWith("blob:")) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   const handleLogoChange = (e) => {
     const file = e.target.files[0];
@@ -33,6 +55,7 @@ export default function Backer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!briefData?.title || !briefData?.description || !briefData?.bountyType || !briefData?.dominantImpact) {
       setErrorMsg("Please complete all required fields in the Brief step!");
       return;
@@ -41,7 +64,7 @@ export default function Backer() {
       setErrorMsg("Please complete all required fields in the Rewards step!");
       return;
     }
-    if (hasBacker && (!backerName || !backerLogo)) {
+    if (hasBacker && (!backerName || (!backerLogo && !previewUrl))) {
       setErrorMsg("Please fill backer name and upload logo!");
       return;
     }
@@ -55,14 +78,18 @@ export default function Backer() {
 
     setTimeout(() => {
       const payload = hasBacker
-        ? { name: backerName, logo: backerLogo, message: backerMessage }
+        ? {
+            name: backerName,
+            message: backerMessage,
+            logoPreview: previewUrl,
+          }
         : null;
 
       dispatch(saveStepData({ step: "backer", data: payload }));
       dispatch(completeStep("backer"));
       dispatch(setCurrentStep("confirm"));
       setLoading(false);
-    }, 1500);
+    }, 500);
   };
 
   return (
@@ -70,7 +97,6 @@ export default function Backer() {
       onSubmit={handleSubmit}
       className="w-full max-w-[718px] bg-[#F7F7F7] border-x border-[#E5E5E5] rounded-lg p-6 mt-24 mx-auto relative"
     >
-      {/* Error Popup */}
       {errorMsg && (
         <div className="w-full max-w-[576px] mx-auto mb-4 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm text-center">
           {errorMsg}
@@ -82,7 +108,7 @@ export default function Backer() {
         Select this option if you wish to display the bounty sponsor/backer’s logo and name on the bounty
       </p>
 
-      {/* TOGGLE */}
+    
       <div className="flex items-center gap-4 mb-6">
         <div
           onClick={() => setHasBacker(!hasBacker)}
@@ -93,7 +119,6 @@ export default function Backer() {
         <label className="text-sm font-semibold">Does the bounty have a sponsor or backer?</label>
       </div>
 
-      {/* Backer content */}
       {hasBacker && (
         <div className="space-y-4">
           <div>
@@ -106,7 +131,6 @@ export default function Backer() {
             />
           </div>
 
-          {/* File Upload */}
           <div>
             <label className="font-bold text-sm block mb-1">Backer Logo *</label>
             <div className="w-full border border-[#E5E5E5] bg-white rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between">
@@ -114,8 +138,7 @@ export default function Backer() {
                 <div className="flex items-center gap-3 mb-2 md:mb-0">
                   <img src={previewUrl} alt="Logo" className="w-16 h-16 object-cover rounded border" />
                   <div className="flex flex-col">
-                    <p className="text-sm font-medium">{backerLogo?.name}</p>
-                    <p className="text-xs text-gray-500">{(backerLogo.size / 1024).toFixed(1)} KB</p>
+                    <p className="text-sm font-medium">{backerLogo?.name || "Uploaded Logo"}</p>
                   </div>
                 </div>
               ) : (
@@ -165,7 +188,6 @@ export default function Backer() {
         </div>
       )}
 
-      {/* Terms Checkbox */}
       <div className="flex items-center mt-4">
         <input
           type="checkbox"
@@ -179,7 +201,6 @@ export default function Backer() {
         </label>
       </div>
 
-      {/* Actions */}
       <div className="flex flex-col md:flex-row items-center justify-between mt-8 gap-4">
         <button
           type="button"

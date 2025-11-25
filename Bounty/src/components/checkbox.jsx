@@ -4,7 +4,7 @@ export default function MultiSelectDropdown({ options, value = [], onChange, pla
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
 
-  // Close dropdown when clicked outside
+  
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
@@ -25,7 +25,7 @@ export default function MultiSelectDropdown({ options, value = [], onChange, pla
 
   return (
     <div ref={containerRef} className="relative w-full">
-      {/* Input / Placeholder */}
+      
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="w-full min-h-[40px] border border-gray-300 rounded p-2 flex flex-wrap items-center gap-2 cursor-pointer bg-white"
@@ -45,7 +45,7 @@ export default function MultiSelectDropdown({ options, value = [], onChange, pla
         ))}
       </div>
 
-      {/* Dropdown */}
+      
       {isOpen && (
         <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow max-h-48 overflow-y-auto">
           {options.map((opt) => (
