@@ -1,5 +1,5 @@
 Bounty Creation Platform – README
-Project Overview
+
 
 This project is a multi-step Bounty Creation platform where users can create and publish a bounty by filling out structured steps:
 
