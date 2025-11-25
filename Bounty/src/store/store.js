@@ -3,8 +3,8 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 const initialState = {
     steps : {
         brief : {completed : false, data : {}},
-        rewards : {completed : false, data : {}},
         backer : {completed : false, data : {}},
+        rewards : {completed : false, data : {}},
     },
 
     CurrentStep : "brief",
