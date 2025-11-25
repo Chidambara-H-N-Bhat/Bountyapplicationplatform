@@ -1,4 +1,4 @@
-###Bounty Creation Platform 
+**Bounty Creation Platform**
 
 
 This project is a multi-step Bounty Creation platform where users can create and publish a bounty by filling out structured steps:
@@ -20,7 +20,7 @@ A responsive sidebar with a hamburger menu allows step navigation on desktop and
 Users can upload images, view live previews, and see a final confirmation page with all entered data.
 
 
-Technology Stack
+*Technology Stack*
 
 Frontend
 
@@ -41,7 +41,7 @@ Build Tools
 Vite – Fast bundler and dev server
 
 
-📁 Code Structure Explanation
+*📁 Code Structure Explanation*
 src/
 │
 ├── components/
@@ -74,7 +74,7 @@ public/
 
     
 
-Setup & Run Instructions
+*Setup & Run Instructions*
 
 1️. Install Dependencies
 npm install
@@ -89,7 +89,7 @@ The terminal will show a URL like:
 http://localhost:5173/
 
 
- Build & Deployment Instructions
+ *Build & Deployment Instructions*
 
 
 Build for Production
@@ -109,7 +109,7 @@ Import your GitHub repo
 Select Framework = Vite
 
 
-Assumptions & Limitations
+*Assumptions & Limitations*
  
 Assumptions
  
