@@ -112,6 +112,8 @@ No backend is implemented (data is not saved permanently)
 
 Images uploaded by users are not stored, they only preview locally
 
+Vercel Deployed link bountyapplicationplatform.vercel.app
+
 
 
 
