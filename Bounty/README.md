@@ -73,6 +73,45 @@ src/
 
 -----
 
+ Setup & Run Instructions
+1️⃣ Install Dependencies
+npm install
+
+2️⃣ Run Development Server
+npm run dev
+
+3️⃣ Open App in Browser
+
+The terminal will show a URL like:
+
+http://localhost:5173/
+
+Deployed to Vercel 
+
+Push project to GitHub
+
+Go to → https://vercel.com/new
+
+
+
+
+
+
+📌 Assumptions & Limitations
+Assumptions
+
+User enters correct information for all steps
+
+Internet connection is required for deployment version
+
+Steps flow sequentially (Brief → Rewards → Backer → Confirm → Result)
+
+Limitations
+
+No backend is implemented (data is not saved permanently)
+
+Images uploaded by users are not stored, they only preview locally
+
 
 
 
