@@ -120,13 +120,12 @@ This command bundles the app into static files in the `dist` directory.
 npm run preview
 ```
 
-#### Deployment (Example: Vercel)
+#### Deployment 
 
-The project can be deployed easily to platforms like Vercel:
+The project deployed in Vercel:
 
-1.  Push your code to a GitHub repository.
-2.  Go to [Vercel](https://vercel.com/new) and import your repository.
-3.  Vercel will automatically detect the **Vite** framework and set up the correct build commands.
+1.  Pushed my code to a GitHub repository.
+2.  Vercel will automatically detect the **Vite** framework and set up the correct build commands.
 
 -----
 
