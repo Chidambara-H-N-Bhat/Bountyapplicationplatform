@@ -1,4 +1,4 @@
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/sidebar";
 import Brief from "./components/brief";
 import RewardsStep from "./components/rewards";
 import Backer from "./components/Backer";
