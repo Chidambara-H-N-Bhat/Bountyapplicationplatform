@@ -92,6 +92,8 @@ Push project to GitHub
 
 Go to → https://vercel.com/new
 
+Vercel Deployed link https://bountyapplicationplatform.vercel.app/
+
 
 
 
